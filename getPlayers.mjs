@@ -23,4 +23,4 @@ const results = summaryResults.data.map((val) => {
     return deepMergeObjects(val, miscResult[0]);
 });
 
-writeFile("nhl_points/src/data/players.js", `const players = ${JSON.stringify(results)}; export default players;`, err => console.log);
+writeFile("src/data/players.js", `const players = ${JSON.stringify(results)}; export default players;`, err => console.log);
