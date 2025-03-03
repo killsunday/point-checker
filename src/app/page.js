@@ -23,7 +23,13 @@ export default function Home() {
   const [skaterScoring, setSkaterScoring] = useState({ ...defaultSkaterScoring });
 
   const updateScoring = useCallback((stat, value) => {
-    setSkaterScoring((prev) => ({ ...prev, [stat]: parseFloat(value).toFixed(1) || 0 }));
+    let statValue = parseFloat(value).toFixed(1) || 0;
+    console.log(statValue);
+    if (!Number.isSafeInteger(statValue)) {
+      statValue = 0;
+    }
+    console.log(statValue)
+    setSkaterScoring((prev) => ({ ...prev, [stat]: statValue }));
   }, []);
 
   const calculatedPlayers = useMemo(() => {
