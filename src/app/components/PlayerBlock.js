@@ -1,7 +1,9 @@
 const PlayerBlock = (props) => {
     const player = props.player;
+    const index = props.index;
 
     return (<tr>
+        <td>{index}</td>
         <td>{player.skaterFullName}</td>
         <td>{player.positionCode}</td>
         <td>{player.teamAbbrevs}</td>

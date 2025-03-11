@@ -23,9 +23,7 @@ export default function Home() {
   const [skaterScoring, setSkaterScoring] = useState({ ...defaultSkaterScoring });
 
   const updateScoring = useCallback((stat, value) => {
-    let statValue = value || 0;
-    
-    setSkaterScoring((prev) => ({ ...prev, [stat]: statValue }));
+    setSkaterScoring((prev) => ({ ...prev, [stat]: parseFloat(value).toFixed(1) || 0 }));
   }, []);
 
   const calculatedPlayers = useMemo(() => {
@@ -69,6 +67,7 @@ export default function Home() {
         <table>
           <thead>
             <tr>
+              <th>Rank</th>
               <th>Name</th>
               <th>Position</th>
               <th>Team</th>
@@ -89,8 +88,8 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {calculatedPlayers.map((player) => (
-              <PlayerBlock key={player.playerId} player={player} />
+            {calculatedPlayers.map((player, index) => (
+              <PlayerBlock key={player.playerId} player={player} index={index+1} />
             ))}
           </tbody>
         </table>
