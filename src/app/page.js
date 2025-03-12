@@ -18,9 +18,6 @@ const defaultSkaterScoring = {
   blocks: 1.6,
   plusMinus: 0,
   penaltyMinutes: 0,
-};
-
-const defaultGoalieScoring = {
   W: 5,
   GA: -2,
   SVS: .5,
@@ -47,12 +44,12 @@ export default function Home() {
       .map((player) => ({
         ...player,
         leaguePoints: player.positionCode === "G" ?
-          (player.wins * defaultGoalieScoring.W + 
-            player.saves * defaultGoalieScoring.SVS + 
-            player.shutouts * defaultGoalieScoring.SHO + 
-            player.goalsAgainst * defaultGoalieScoring.GA +
-            player.gamesStarted * defaultGoalieScoring.GS +
-            player.gamesPlayed * defaultGoalieScoring.GP) :
+          (player.wins * skaterScoring.W + 
+            player.saves * skaterScoring.SVS + 
+            player.shutouts * skaterScoring.SHO + 
+            player.goalsAgainst * skaterScoring.GA +
+            player.gamesStarted * skaterScoring.GS +
+            player.gamesPlayed * skaterScoring.GP) :
             (player.goals * skaterScoring.goals +
             player.assists * skaterScoring.assists +
             player.ppGoals * skaterScoring.PPG +
