@@ -25,11 +25,12 @@ const defaultSkaterScoring = {
   GS: 0,
   GP: 0,
 };
+
 let playersData = players;
-    goalies.data.forEach(player => {
-      player.positionCode = "G";
-      playersData.push(player);
-    });
+goalies.data.forEach(player => {
+  player.positionCode = "G";
+  playersData.push(player);
+});
     
 export default function Home() {
   const [skaterScoring, setSkaterScoring] = useState({ ...defaultSkaterScoring });
@@ -39,8 +40,6 @@ export default function Home() {
   }, []);
 
   const calculatedPlayers = useMemo(() => {
-    
-    
     return players
       .map((player) => ({
         ...player,
@@ -64,7 +63,7 @@ export default function Home() {
             player.plusMinus * skaterScoring.plusMinus +
             player.penaltyMinutes * skaterScoring.penaltyMinutes),
       }))
-      .sort((a, b) => b.leaguePoints - a.leaguePoints);
+      .sort((a, b) => b.leaguePoints - a.leaguePoints).slice(0,100);
   }, [skaterScoring]);
 
   return (
@@ -83,7 +82,22 @@ export default function Home() {
             </div>
           ))}
         </div>
-        
+
+        <div className="distro-block">
+          <div className="distro">
+            <h4>Goalies</h4>
+            <div className="number">{`${calculatedPlayers.filter(player => player.positionCode === "G").length}%`}</div>
+          </div>
+          <div className="distro">
+            <h4>Forwards</h4>
+            <div className="number">{`${calculatedPlayers.filter(player => player.positionCode !== "D" && player.positionCode !== "G").length}%`}</div>
+          </div>
+          <div className="distro">
+            <h4>Defense</h4>
+            <div className="number">{`${calculatedPlayers.filter(player => player.positionCode === "D").length}%`}</div>
+          </div>
+        </div>
+
         <table>
           <thead>
             <tr>

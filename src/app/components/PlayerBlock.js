@@ -12,9 +12,9 @@ const PlayerBlock = (props) => {
         <td>{player.goals}</td>
         <td>{player.assists}</td>
         <td>{player.ppGoals}</td>
-        <td>{player.ppPoints - player.ppGoals}</td>
+        <td>{player.ppPoints - player.ppGoals || ""}</td>
         <td>{player.shGoals}</td>
-        <td>{player.shPoints - player.shGoals}</td>
+        <td>{player.shPoints - player.shGoals || ""}</td>
         <td>{player.gameWinningGoals}</td>
         <td>{player.shots}</td>
         <td>{player.hits}</td>
@@ -25,7 +25,6 @@ const PlayerBlock = (props) => {
         <td>{player.gamesPlayed}</td>
         <td>{player.saves}</td>
         <td>{player.wins}</td>
-        <td>{player.saves}</td>
         <td>{player.shutouts}</td>
     </tr>)
 }
