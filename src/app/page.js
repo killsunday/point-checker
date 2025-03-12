@@ -28,6 +28,9 @@ const defaultSkaterScoring = {
 
 let playersData = players;
 goalies.data.forEach(player => {
+  if (players.filter(playerId => player.playerId === playerId.playerId).length) {
+    return;
+  }
   player.positionCode = "G";
   playersData.push(player);
 });
