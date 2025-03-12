@@ -104,6 +104,11 @@ export default function Home() {
               <th>BLK</th>
               <th>+/-</th>
               <th>PIM</th>
+              <th>GS</th>
+              <th>GP</th>
+              <th>Saves</th>
+              <th>Wins</th>
+              <th>SO</th>
             </tr>
           </thead>
           <tbody>
