@@ -2,6 +2,7 @@
 import { useState, useMemo, useCallback } from "react";
 import styles from "./page.module.css";
 import players from "../data/players.js";
+import goalies from "../data/goalies.js";
 import PlayerBlock from "./components/PlayerBlock.js";
 
 const defaultSkaterScoring = {
@@ -19,6 +20,15 @@ const defaultSkaterScoring = {
   penaltyMinutes: 0,
 };
 
+const defaultGoalieScoring = {
+  W: 5,
+  GA: -2,
+  SVS: .5,
+  SHO: 5, 
+  GS: 0,
+  GP: 0,
+};
+
 export default function Home() {
   const [skaterScoring, setSkaterScoring] = useState({ ...defaultSkaterScoring });
 
@@ -27,22 +37,34 @@ export default function Home() {
   }, []);
 
   const calculatedPlayers = useMemo(() => {
+    let playersData = players;
+    goalies.data.forEach(player => {
+      player.positionCode = "G";
+      playersData.push(player);
+    });
+    
     return players
       .map((player) => ({
         ...player,
-        leaguePoints:
-          player.goals * skaterScoring.goals +
-          player.assists * skaterScoring.assists +
-          player.ppGoals * skaterScoring.PPG +
-          (player.ppPoints - player.ppGoals) * skaterScoring.PPA +
-          player.shGoals * skaterScoring.SHG +
-          (player.shPoints - player.shGoals) * skaterScoring.SHA +
-          player.gameWinningGoals * skaterScoring.GWG +
-          player.shots * skaterScoring.SOG +
-          player.hits * skaterScoring.hits +
-          player.blockedShots * skaterScoring.blocks +
-          player.plusMinus * skaterScoring.plusMinus +
-          player.penaltyMinutes * skaterScoring.penaltyMinutes,
+        leaguePoints: player.positionCode === "G" ?
+          (player.wins * defaultGoalieScoring.W + 
+            player.saves * defaultGoalieScoring.SVS + 
+            player.shutouts * defaultGoalieScoring.SHO + 
+            player.goalsAgainst * defaultGoalieScoring.GA +
+            player.gamesStarted * defaultGoalieScoring.GS +
+            player.gamesPlayed * defaultGoalieScoring.GP) :
+            (player.goals * skaterScoring.goals +
+            player.assists * skaterScoring.assists +
+            player.ppGoals * skaterScoring.PPG +
+            (player.ppPoints - player.ppGoals) * skaterScoring.PPA +
+            player.shGoals * skaterScoring.SHG +
+            (player.shPoints - player.shGoals) * skaterScoring.SHA +
+            player.gameWinningGoals * skaterScoring.GWG +
+            player.shots * skaterScoring.SOG +
+            player.hits * skaterScoring.hits +
+            player.blockedShots * skaterScoring.blocks +
+            player.plusMinus * skaterScoring.plusMinus +
+            player.penaltyMinutes * skaterScoring.penaltyMinutes),
       }))
       .sort((a, b) => b.leaguePoints - a.leaguePoints);
   }, [skaterScoring]);

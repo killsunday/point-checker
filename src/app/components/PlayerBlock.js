@@ -4,7 +4,7 @@ const PlayerBlock = (props) => {
 
     return (<tr>
         <td>{index}</td>
-        <td>{player.skaterFullName}</td>
+        <td>{player.skaterFullName || player.goalieFullName}</td>
         <td>{player.positionCode}</td>
         <td>{player.teamAbbrevs}</td>
         <td>{player.leaguePoints.toFixed(2)}</td>
@@ -21,6 +21,12 @@ const PlayerBlock = (props) => {
         <td>{player.blockedShots}</td>
         <td>{player.plusMinus}</td>
         <td>{player.penaltyMinutes}</td>
+        <td>{player.gamesStarted}</td>
+        <td>{player.gamesPlayed}</td>
+        <td>{player.saves}</td>
+        <td>{player.wins}</td>
+        <td>{player.saves}</td>
+        <td>{player.shutouts}</td>
     </tr>)
 }
 
