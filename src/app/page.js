@@ -25,7 +25,12 @@ const defaultSkaterScoring = {
   GS: 0,
   GP: 0,
 };
-
+let playersData = players;
+    goalies.data.forEach(player => {
+      player.positionCode = "G";
+      playersData.push(player);
+    });
+    
 export default function Home() {
   const [skaterScoring, setSkaterScoring] = useState({ ...defaultSkaterScoring });
 
@@ -34,11 +39,7 @@ export default function Home() {
   }, []);
 
   const calculatedPlayers = useMemo(() => {
-    let playersData = players;
-    goalies.data.forEach(player => {
-      player.positionCode = "G";
-      playersData.push(player);
-    });
+    
     
     return players
       .map((player) => ({
