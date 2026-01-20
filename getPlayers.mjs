@@ -6,12 +6,12 @@ const deepMergeObjects = (...objects) => {
 }
 
 
-const summaryResults = await fetch("https://api.nhle.com/stats/rest/en/skater/summary?limit=-1&cayenneExp=seasonId=20242025")
+const summaryResults = await fetch("https://api.nhle.com/stats/rest/en/skater/summary?limit=-1&cayenneExp=seasonId=20252026")
     .then((data) => {
         return data.json();
     }).catch(err => console.log);
 
-const miscResults = await fetch("https://api.nhle.com/stats/rest/en/skater/realtime?limit=-1&cayenneExp=seasonId=20242025")
+const miscResults = await fetch("https://api.nhle.com/stats/rest/en/skater/realtime?limit=-1&cayenneExp=seasonId=20252026")
     .then(data => {
         return data.json();
     }).catch(err => console.log);
